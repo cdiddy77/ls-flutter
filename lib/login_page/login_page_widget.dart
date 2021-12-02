@@ -110,8 +110,30 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   FFButtonWidget(
-                                    onPressed: () {
-                                      print('SignUp pressed ...');
+                                    onPressed: () async {
+                                      setState(() => _loadingButton1 = true);
+                                      try {
+                                        final user =
+                                            await createAccountWithEmail(
+                                          context,
+                                          emailAddressController.text,
+                                          passwordController.text,
+                                        );
+                                        if (user == null) {
+                                          return;
+                                        }
+
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomePageWidget(),
+                                          ),
+                                          (r) => false,
+                                        );
+                                      } finally {
+                                        setState(() => _loadingButton1 = false);
+                                      }
                                     },
                                     text: 'Sign Up',
                                     options: FFButtonOptions(
@@ -274,12 +296,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   return;
                                 }
 
-                                await Navigator.pushAndRemoveUntil(
+                                await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => HomePageWidget(),
                                   ),
-                                  (r) => false,
                                 );
                               } finally {
                                 setState(() => _loadingButton2 = false);

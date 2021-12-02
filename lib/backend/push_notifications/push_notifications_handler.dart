@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import '../../login_page/login_page_widget.dart';
+import '../../cutout_plus_button/cutout_plus_button_widget.dart';
 
 class PushNotificationsHandler extends StatefulWidget {
   const PushNotificationsHandler(
@@ -76,6 +77,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
 
 final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'LoginPage': (data) async => LoginPageWidget(),
+  'CutoutPlusButton': (data) async => CutoutPlusButtonWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>
